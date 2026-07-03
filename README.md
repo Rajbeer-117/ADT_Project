@@ -149,23 +149,5 @@ Recommended scale levels for the final report:
 - Result ranking agreement
 - Filter selectivity effect
 
-## Report-ready novelty statement
 
-This project does not only test pure vector similarity search. It evaluates the interaction between structured filtering and semantic retrieval in a cybersecurity setting. The important insight is that metadata filters such as severity, platform, date range, and MITRE tactic can change both latency and recall because each database integrates vector indexes and predicate filtering differently.
 
-## Notes for GitHub commits
-
-Suggested commit sequence:
-
-1. `init: add project structure and docker compose`
-2. `data: add cybersecurity sample schema and preprocessing pipeline`
-3. `db: add postgres pgvector loader and query adapter`
-4. `db: add milvus and weaviate adapters`
-5. `benchmark: add hybrid query templates and metrics`
-6. `docs: add midterm progress notes and team task breakdown`
-7. `frontend: add simple search demo interface`
-8. `results: add benchmark output and charts`
-
-## Academic integrity note
-
-Use this as a project implementation base and personalize the results, GitHub history, screenshots, and report explanation using your own executed experiments.
