@@ -28,9 +28,9 @@ The benchmark records latency, recall@k, result quality, indexing time, and inde
 
 ```text
 hybrid_cyber_vector_project/
-├── backend/                 # FastAPI demo backend
+├── backend/                 # FastAPI backend
 ├── data/                    # sample data and generated processed data
-├── docs/                    # report-ready project notes
+├── docs/                    # project notes
 ├── frontend/                # simple web UI
 ├── scripts/                 # setup and helper scripts
 ├── src/                     # main Python package
