@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hybrid Cyber Threat Retrieval Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a, #1e3a8a, #0f766e);
+      color: #e5e7eb;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      background: #020617;
+      color: #f8fafc;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
+    }
+
+    .results-card h2 {
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .result {
+      background: rgba(15, 23, 42, 0.85);
+      border-left: 5px solid #38bdf8;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 14px;
+      transition: 0.2s ease;
+    }
+
+    .result:hover {
+      transform: scale(1.01);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .result h3 {
+      color: #7dd3fc;
+      margin-bottom: 10px;
+    }
+
+    .result p {
+      color: #dbeafe;
+      line-height: 1.5;
+    }
+
+    .meta {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #a5b4fc;
+    }
+
+    .empty {
+      color: #cbd5e1;
+      text-align: center;
+      padding: 30px;
+      border: 1px dashed #94a3b8;
+      border-radius: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>Hybrid Cybersecurity Threat Intelligence Retrieval</h1>
+      <p>Search CVE/NVD and MITRE ATT&CK style records using semantic vector search and structured filters.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Threat Search</h2>
+
+        <label for="text">Search Text</label>
+        <input id="text" value="remote code execution in windows service" />
+
+        <label for="platform">Platform Filter</label>
+        <select id="platform">
+          <option value="">Any Platform</option>
+          <option>Windows</option>
+          <option>Linux</option>
+          <option>Web</option>
+          <option>Cloud</option>
+          <option>Android</option>
+          <option>Email</option>
+        </select>
+
+        <label for="severity">Minimum Severity</label>
+        <input id="severity" type="number" step="0.1" min="0" max="10" value="7.0" />
+
+        <button onclick="search()">Search Threat Intelligence</button>
+      </div>
+
+      <div class="card results-card">
+        <h2>Search Results</h2>
+        <div id="results" class="empty">Run a query to see matching threat intelligence records.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function search() {
+      const filters = {};
+      const platform = document.getElementById('platform').value;
+      const severity = document.getElementById('severity').value;
+
+      if (platform) filters.platform = platform;
+      if (severity) filters.min_severity = parseFloat(severity);
+
+      const payload = {
+        text: document.getElementById('text').value,
+        top_k: 5,
+        filters
+      };
+
+      const div = document.getElementById('results');
+      div.className = "empty";
+      div.innerHTML = "Searching threat records...";
+
+      try {
+        const res = await fetch('http://localhost:8000/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!data.results || !data.results.length) {
+          div.className = "empty";
+          div.innerHTML = "No matching results found.";
+          return;
+        }
+
+        div.className = "";
+        div.innerHTML = data.results.map(r => `
+          <div class="result">
+            <h3>${r.doc_id}: ${r.title}</h3>
+            <p>${r.description}</p>
+            <p class="meta">
+              Score: ${r.score.toFixed(3)} |
+              Severity: ${r.metadata.severity} |
+              Platform: ${r.metadata.platform} |
+              Tactic: ${r.metadata.tactic}
+            </p>
+          </div>
+        `).join('');
+
+      } catch (error) {
+        div.className = "empty";
+        div.innerHTML = "Unable to connect to backend. Make sure FastAPI is running on port 8000.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+{
+  "systems": {
+    "local_exact": [
+      {
+        "query_id": "Q1",
+        "query_text": "remote code execution in windows service",
+        "filters": {
+          "platform": "Windows",
+          "min_severity": 8.0
+        },
+        "latency_ms": {
+          "p50": 0.07619999814778566,
+          "p95": 0.1283999881707132,
+          "p99": 0.1283999881707132,
+          "mean": 0.09176666693141063
+        },
+        "recall_at_10": 1.0,
+        "retrieved_ids": [
+          "CVE-2026-0001",
+          "ATTACK-T1021",
+          "ATTACK-T1003"
+        ],
+        "top_results": [
+          {
+            "doc_id": "CVE-2026-0001",
+            "score": 0.730296790599823,
+            "title": "Windows service remote code execution",
+            "description": "A remote attacker can exploit improper input validation in a Windows network service to execute arbitrary code with system privileges.",
+            "metadata": {
+              "source": "NVD",
+              "severity": 9.8,
+              "platform": "Windows",
+              "vendor": "Microsoft",
+              "tactic": "execution",
+              "technique": "T1203",
+              "published_date": "2026-01-14"
+            }
+          },
+          {
+            "doc_id": "ATTACK-T1021",
+            "score": 0.21320071816444397,
+            "title": "Remote Services",
+            "description": "Adversaries may use valid accounts to log into remote services such as RDP, SSH, or SMB to move laterally across systems.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 8.0,
+              "platform": "Windows",
+              "vendor": "MITRE",
+              "tactic": "lateral-movement",
+              "technique": "T1021",
+              "published_date": "2025-10-01"
+            }
+          },
+          {
+            "doc_id": "ATTACK-T1003",
+            "score": 0.07715168595314026,
+            "title": "OS Credential Dumping",
+            "description": "Adversaries may attempt to dump credentials from operating system memory, registries, or files to obtain account passwords and hashes.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 8.8,
+              "platform": "Windows",
+              "vendor": "MITRE",
+              "tactic": "credential-access",
+              "technique": "T1003",
+              "published_date": "2025-10-01"
+            }
+          }
+        ]
+      },
+      {
+        "query_id": "Q2",
+        "query_text": "web application database injection attack",
+        "filters": {
+          "platform": "Web",
+          "min_severity": 7.0
+        },
+        "latency_ms": {
+          "p50": 0.039000005926936865,
+          "p95": 0.05539998528547585,
+          "p99": 0.05539998528547585,
+          "mean": 0.043399990924323596
+        },
+        "recall_at_10": 1.0,
+        "retrieved_ids": [
+          "CVE-2026-0003"
+        ],
+        "top_results": [
+          {
+            "doc_id": "CVE-2026-0003",
+            "score": 0.46017906069755554,
+            "title": "SQL injection in web portal",
+            "description": "The application fails to sanitize parameters in a login endpoint, allowing SQL injection and unauthorized database access.",
+            "metadata": {
+              "source": "NVD",
+              "severity": 9.1,
+              "platform": "Web",
+              "vendor": "Generic",
+              "tactic": "initial-access",
+              "technique": "T1190",
+              "published_date": "2026-02-10"
+            }
+          }
+        ]
+      },
+      {
+        "query_id": "Q3",
+        "query_text": "steal passwords and credential hashes from operating system",
+        "filters": {
+          "tactic": "credential-access"
+        },
+        "latency_ms": {
+          "p50": 0.06579997716471553,
+          "p95": 0.08570001227781177,
+          "p99": 0.08570001227781177,
+          "mean": 0.07190000421057145
+        },
+        "recall_at_10": 1.0,
+        "retrieved_ids": [
+          "ATTACK-T1003",
+          "CVE-2026-0004",
+          "CVE-2026-0008"
+        ],
+        "top_results": [
+          {
+            "doc_id": "ATTACK-T1003",
+            "score": 0.46770724654197693,
+            "title": "OS Credential Dumping",
+            "description": "Adversaries may attempt to dump credentials from operating system memory, registries, or files to obtain account passwords and hashes.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 8.8,
+              "platform": "Windows",
+              "vendor": "MITRE",
+              "tactic": "credential-access",
+              "technique": "T1003",
+              "published_date": "2025-10-01"
+            }
+          },
+          {
+            "doc_id": "CVE-2026-0004",
+            "score": 0.060633912682533264,
+            "title": "Cross-site scripting in dashboard",
+            "description": "Stored cross-site scripting allows an attacker to inject malicious JavaScript into an administrative dashboard viewed by privileged users.",
+            "metadata": {
+              "source": "NVD",
+              "severity": 6.5,
+              "platform": "Web",
+              "vendor": "Generic",
+              "tactic": "credential-access",
+              "technique": "T1056",
+              "published_date": "2026-03-11"
+            }
+          },
+          {
+            "doc_id": "CVE-2026-0008",
+            "score": 0.0,
+            "title": "SSH brute-force detection bypass",
+            "description": "Improper rate-limit enforcement allows repeated SSH authentication attempts without triggering account lockout controls.",
+            "metadata": {
+              "source": "NVD",
+              "severity": 6.8,
+              "platform": "Linux",
+              "vendor": "OpenSSH",
+              "tactic": "credential-access",
+              "technique": "T1110",
+              "published_date": "2026-05-06"
+            }
+          }
+        ]
+      },
+      {
+        "query_id": "Q4",
+        "query_text": "cloud storage data exposure due to permissions",
+        "filters": {
+          "platform": "Cloud",
+          "min_severity": 7.0
+        },
+        "latency_ms": {
+          "p50": 0.04980000085197389,
+          "p95": 0.05020000389777124,
+          "p99": 0.05020000389777124,
+          "mean": 0.049766667264824115
+        },
+        "recall_at_10": 1.0,
+        "retrieved_ids": [
+          "CVE-2026-0006",
+          "CVE-2026-0007"
+        ],
+        "top_results": [
+          {
+            "doc_id": "CVE-2026-0006",
+            "score": 0.46770715713500977,
+            "title": "Cloud storage misconfiguration exposure",
+            "description": "Improper access control in cloud object storage permits unauthenticated users to list and download private files.",
+            "metadata": {
+              "source": "NVD",
+              "severity": 7.4,
+              "platform": "Cloud",
+              "vendor": "AWS",
+              "tactic": "collection",
+              "technique": "T1530",
+              "published_date": "2026-04-01"
+            }
+          },
+          {
+            "doc_id": "CVE-2026-0007",
+            "score": 0.14547859132289886,
+            "title": "Container escape vulnerability",
+            "description": "A malicious container image can exploit weak namespace isolation and escape to the host operating system.",
+            "metadata": {
+              "source": "NVD",
+              "severity": 9.0,
+              "platform": "Cloud",
+              "vendor": "Docker",
+              "tactic": "privilege-escalation",
+              "technique": "T1611",
+              "published_date": "2026-04-18"
+            }
+          }
+        ]
+      },
+      {
+        "query_id": "Q5",
+        "query_text": "attacker moves laterally using remote services",
+        "filters": {
+          "source": "MITRE"
+        },
+        "latency_ms": {
+          "p50": 0.07089998689480126,
+          "p95": 0.07169999298639596,
+          "p99": 0.07169999298639596,
+          "mean": 0.07056666072458029
+        },
+        "recall_at_10": 1.0,
+        "retrieved_ids": [
+          "ATTACK-T1021",
+          "ATTACK-T1059",
+          "ATTACK-T1003",
+          "ATTACK-T1566"
+        ],
+        "top_results": [
+          {
+            "doc_id": "ATTACK-T1021",
+            "score": 0.3553345501422882,
+            "title": "Remote Services",
+            "description": "Adversaries may use valid accounts to log into remote services such as RDP, SSH, or SMB to move laterally across systems.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 8.0,
+              "platform": "Windows",
+              "vendor": "MITRE",
+              "tactic": "lateral-movement",
+              "technique": "T1021",
+              "published_date": "2025-10-01"
+            }
+          },
+          {
+            "doc_id": "ATTACK-T1059",
+            "score": 0.0,
+            "title": "Command and Scripting Interpreter",
+            "description": "Adversaries may abuse command and scripting interpreters to execute commands, scripts, or binaries for malicious objectives.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 7.0,
+              "platform": "Windows",
+              "vendor": "MITRE",
+              "tactic": "execution",
+              "technique": "T1059",
+              "published_date": "2025-10-01"
+            }
+          },
+          {
+            "doc_id": "ATTACK-T1003",
+            "score": 0.0,
+            "title": "OS Credential Dumping",
+            "description": "Adversaries may attempt to dump credentials from operating system memory, registries, or files to obtain account passwords and hashes.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 8.8,
+              "platform": "Windows",
+              "vendor": "MITRE",
+              "tactic": "credential-access",
+              "technique": "T1003",
+              "published_date": "2025-10-01"
+            }
+          },
+          {
+            "doc_id": "ATTACK-T1566",
+            "score": 0.0,
+            "title": "Phishing",
+            "description": "Adversaries may send phishing messages with malicious links or attachments to gain initial access to a victim environment.",
+            "metadata": {
+              "source": "MITRE",
+              "severity": 7.5,
+              "platform": "Email",
+              "vendor": "MITRE",
+              "tactic": "initial-access",
+              "technique": "T1566",
+              "published_date": "2025-10-01"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
